@@ -443,12 +443,12 @@ void test_algorithm(FILE* chunks, enum Algorithm algorithm) {
             failed += size;
         }
         // calculate the time taken and add it to the total time of all requests
-        time += (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / 10e9;
+        time += ((end.tv_sec - start.tv_sec) * 1e9) + (end.tv_nsec - start.tv_nsec);
         // move to the next request
         current = current->next;
     }
     // print the results of the benchmark
-    printf("Time taken: %fs\n", time);
+    printf("Time taken: %.0f nanoseconds\n", time);
     printf("Fragmentation: %.2f%%\n", calculate_fragmentation() * 100);
     double ratio = failed / total; // calculate the ratio of failed memory allocations to total memory allocations
     if (total == 0) {
